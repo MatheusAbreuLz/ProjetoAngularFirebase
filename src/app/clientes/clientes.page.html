@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">clientes</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-button (click)="this.getCliente()">
+    <ion-label *ngIf="!this.isLoading">Listar Clientes</ion-label>
+    <ion-spinner *ngIf="this.isLoading"></ion-spinner>
+  </ion-button>
+</ion-content>
