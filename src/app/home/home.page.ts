@@ -7,14 +7,51 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  isLoading: boolean = false;
+  funcionarios: any;
+
   constructor() {
-    this.getData();
+    this.getFuncionarios();
   }
 
-  getData(){
-    fetch('http://localhost/api/usuario/listar-todos')
-    // .then(T => T.json())
-    .then(console.log)
+  getFuncionarios(){
+    this.isLoading = true;
+    fetch('http://localhost/api/funcionario/listar_funcionario.php')
+    .then(response => response.json())
+    .then(response => {
+      this.funcionarios = response.funcionarios;
+    })
+    .catch(erro => {
+      console.log(erro);
+    })
+    .finally(()=>{
+      this.isLoading = false;
+    })
+  }
+
+  remover(id: any){
+    this.isLoading = true;
+    fetch('http://localhost/api/funcionario/remover_funcionario.php',
+			{
+			  method: 'POST',
+			  headers: {
+			    'Content-Type': 'application/json',
+			  },
+			  body: JSON.stringify({ CodFun: id })
+			}
+		)
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+      this.getFuncionarios();
+    })
+    .catch(erro => {
+      console.log(erro);
+    })
+    .finally(()=>{
+      this.isLoading = false;
+      
+    })
   }
 
 }
