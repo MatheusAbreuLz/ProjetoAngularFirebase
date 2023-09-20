@@ -1,27 +1,58 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar style="display: flex;">
     <ion-title>
-      Blank
+      Funcionario
     </ion-title>
+    <ion-button fill="outline" id="open-modal" expand="block">
+      Adicionar
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-row>
-    <ion-col>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="14" size-lg="6">
       <ion-list>
-          <ion-item>
-            Nome
-          </ion-item>
           <ng-container *ngFor="let funcionario of this.funcionarios">
             <ion-item>
-              <ion-label>
-                {{funcionario.Nome}} - {{ funcionario.Cargo }}
-              </ion-label>
+                <ion-label>
+                Nome: {{funcionario.Nome}} - Cargo: {{funcionario.Cargo}} - Cidade: {{funcionario.Cidade}} - Telefone: {{funcionario.Fone}}
+                </ion-label>
               <ion-icon name="trash-outline" (click)="remover(funcionario.CodFun)"></ion-icon>
             </ion-item>
           </ng-container>
       </ion-list>
     </ion-col>
   </ion-row>
+  <ion-modal trigger="open-modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button>Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>Adicionar Funcionario</ion-title>
+          <ion-buttons slot="end">
+            <ion-button  [strong]="true">Confirm</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">Entre o Nome</ion-label>
+            <ion-input type="text" placeholder="Your name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Entre o Cargo</ion-label>
+            <ion-input type="text" placeholder="Your name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Entre a cidade</ion-label>
+            <ion-input type="text" placeholder="Your name"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

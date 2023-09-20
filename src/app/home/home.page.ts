@@ -54,4 +54,8 @@ export class HomePage {
     })
   }
 
+  add(){
+    
+  }
+
 }
