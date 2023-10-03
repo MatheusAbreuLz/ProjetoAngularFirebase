@@ -14,6 +14,39 @@ export class HomePage {
     this.getFuncionarios();
   }
 
+  input: any = {
+    'nome':'',
+    'sobrenome':'',
+    'cargo':'',
+    'datanasc':'',
+    'endereco':'',
+    'cidade':'',
+    'cep':'',
+    'pais':'',
+    'fone':'',
+    'salario':'',
+    'id':''
+  };
+
+  envia(){
+
+    fetch('http://localhost/api/funcionario/inserir_funcionario.php', {
+      method:'post',
+      headers: {
+        'Content-type':'application/json'
+      },
+      body: JSON.stringify(this.input)
+    }).then(response => response.json())
+    .then(response =>{
+      console.log(response);
+    }).catch(erro => {
+      console.log(erro);
+    })
+    .finally(()=>{
+      console.log('vai la ve')
+    })
+  }
+
   getFuncionarios(){
     this.isLoading = true;
     fetch('http://localhost/api/funcionario/listar_funcionario.php')
@@ -54,8 +87,5 @@ export class HomePage {
     })
   }
 
-  add(){
-    
-  }
 
 }

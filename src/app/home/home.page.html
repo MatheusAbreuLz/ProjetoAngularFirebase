@@ -11,7 +11,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-row class="ion-justify-content-center">
-    <ion-col size="14" size-lg="6">
+    <ion-col size="14" size-lg="8">
       <ion-list>
           <ng-container *ngFor="let funcionario of this.funcionarios">
             <ion-item>
@@ -19,6 +19,7 @@
                 Nome: {{funcionario.Nome}} - Cargo: {{funcionario.Cargo}} - Cidade: {{funcionario.Cidade}} - Telefone: {{funcionario.Fone}}
                 </ion-label>
               <ion-icon name="trash-outline" (click)="remover(funcionario.CodFun)"></ion-icon>
+              <ion-icon name="pencil-outline" (click)=""></ion-icon>
             </ion-item>
           </ng-container>
       </ion-list>
@@ -33,24 +34,54 @@
           </ion-buttons>
           <ion-title>Adicionar Funcionario</ion-title>
           <ion-buttons slot="end">
-            <ion-button  [strong]="true">Confirm</ion-button>
+            <ion-button  [strong]="true" (click)="envia()">Confirm</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content>
         <ion-list>
-          <ion-item>
-            <ion-label position="stacked">Entre o Nome</ion-label>
-            <ion-input type="text" placeholder="Your name"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">Entre o Cargo</ion-label>
-            <ion-input type="text" placeholder="Your name"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">Entre a cidade</ion-label>
-            <ion-input type="text" placeholder="Your name"></ion-input>
-          </ion-item>
+            <ion-item>
+              <ion-item>
+                <ion-label >Nome: </ion-label>
+                <ion-input type="text" name="nome" [(ngModel)]="input.nome"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label >Sobrenome: </ion-label>
+                <ion-input type="text" name="nome" [(ngModel)]="input.sobrenome" ></ion-input>
+              </ion-item>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Entre o Cargo</ion-label>
+              <ion-input type="text" name="cargo" [(ngModel)]="input.cargo"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Entre seu CEP</ion-label>
+              <ion-input type="text" name="cep" [(ngModel)]="input.cep"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Entre seu telefone</ion-label>
+              <ion-input type="text" name="fone" [(ngModel)]="input.fone"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Data de nascimento</ion-label>
+              <ion-input type="date" name="datanasc" [(ngModel)]="input.datanasc"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Entre seu Pais</ion-label>
+              <ion-input type="text" name="pais" [(ngModel)]="input.pais"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Entre sua cidade</ion-label>
+              <ion-input type="text" name="cidade" [(ngModel)]="input.cidade"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Entre seu endereco</ion-label>
+              <ion-input type="text" name="endereco" [(ngModel)]="input.endereco"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Entre seu salario</ion-label>
+              <ion-input type="text" name="salario" [(ngModel)]="input.salario"></ion-input>
+            </ion-item>
         </ion-list>
       </ion-content>
     </ng-template>
