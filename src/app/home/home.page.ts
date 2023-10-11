@@ -10,17 +10,19 @@ export class HomePage {
   isLoading: boolean = false;
   funcionarios: any;
   IsModalOpen: boolean = false;
+  IsModalOpens: boolean = false;
   radio: any = 'all';
-
+  
   constructor() {
     this.getFuncionarios();
   }
+
 
   input: any = {
     'Nome':'',
     'Sobrenome':'',
     'Cargo':'',
-    'Datanasc':'',
+    'DataNasc':'',
     'Endereco':'',
     'Cidade':'',
     'CEP':'',
@@ -34,6 +36,14 @@ export class HomePage {
     'pes':''
   }
 
+  ifs(a: any){
+    if(this.searched.pes == a){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   atualizar(id: any){
     fetch('http://localhost/api/funcionario/listar_funcionario_id.php', {
       method:'post',
@@ -45,25 +55,29 @@ export class HomePage {
       })
     }).then(response => response.json())
     .then(response => {
+      this.setOpen();
       this.input = response['funcionarios'][0]
       console.log(this.input)
-      this.setOpen(true);
     }).catch(erro => {
       console.log(erro);
     })
   }
-  setOpen(OPEN: any){
-    this.IsModalOpen = OPEN;
-    if(OPEN = false){
-      this.clean()
-    }
+  setOpen(){
+    this.IsModalOpen = !this.IsModalOpen;
+    this.clean()
   }
+
+  createModal(){
+    this.IsModalOpens = !this.IsModalOpens;
+    this.clean()
+  }
+
   clean(){
     this.input = {
       'Nome':'',
       'Sobrenome':'',
       'Cargo':'',
-      'Datanasc':'',
+      'DataNasc':'',
       'Endereco':'',
       'Cidade':'',
       'CEP':'',
@@ -73,6 +87,8 @@ export class HomePage {
       'CodFun':''
     };
   }
+
+  
 
   search(){
     fetch('http://localhost/api/funcionario/listar_funcionario_'+this.radio+'.php', {
@@ -106,7 +122,7 @@ export class HomePage {
       console.log(erro);
     })
     .finally(()=>{
-      this.setOpen(false)
+      this.setOpen()
       if(this.searched.pes == ''){
         this.getFuncionarios()
       } else {
@@ -131,6 +147,7 @@ export class HomePage {
     })
     .finally(()=>{
       this.clean()
+      this.createModal();
       if(this.searched.pes == ''){
         this.getFuncionarios()
       } else {

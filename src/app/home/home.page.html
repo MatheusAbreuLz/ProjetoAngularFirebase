@@ -1,14 +1,13 @@
 <ion-header [translucent]="true">
-  <ion-toolbar >
+  <ion-toolbar>
     <ion-row>
-      <ion-col>
-        <ion-title>
+      <ion-col class="">
+        <ion-title class="ion-padding">
           Funcionario
         </ion-title>
       </ion-col>
-
       <ion-col>
-        <ion-button id="open-modal">
+        <ion-button id="open-modal" (click)="createModal()">
           Adicionar Funcionario
         </ion-button>
       </ion-col>
@@ -20,15 +19,15 @@
 
 <ion-content [fullscreen]="true">
   <ion-row class="ion-justify-content-center">
-    <ion-col size="14" size-lg="8">
+    <ion-col size="10" size-lg="8">
       <ion-row>
-        <ion-col size="10" size-lg="4">
-          <ion-searchbar [(ngModel)]='searched.pes' (keyup)="search()" show-clear-button="focus" search-icon="none" placeholder="aaa" size="6" size-lg="4"></ion-searchbar>
+        <ion-col size="8" size-lg="4">
+          <ion-searchbar [(ngModel)]='searched.pes' (keyup)="search()" (ionClear)="this.getFuncionarios()" show-clear-button="focus" placeholder="Pesquisar..." size="6" size-lg="4"></ion-searchbar>
         </ion-col>
-        <ion-col>
+        <ion-col  size="12" size-lg="8">
           <ion-radio-group [(ngModel)]="radio">
             <ion-item>
-              <ion-radio justify="start" value="cargo"> Cargo </ion-radio>
+              <ion-radio justify='start' value="cargo"> Cargo </ion-radio>
             <ion-radio justify="start" value="nome"> Nome </ion-radio>
             <ion-radio justify="start" value="cidade"> Cidade </ion-radio>
             <ion-radio justify="start" value="fone"> Telefone </ion-radio>
@@ -36,25 +35,60 @@
           </ion-radio-group>
         </ion-col>
       </ion-row>
-      <ion-list>
+        <ion-list>
           <ng-container *ngFor="let funcionario of this.funcionarios">
-            <ion-item>
+            <ion-item class="ion-hide-sm-down">
                 <ion-label>
                 Nome: {{funcionario.Nome}} - Cargo: {{funcionario.Cargo}} - Cidade: {{funcionario.Cidade}} - Telefone: {{funcionario.Fone}}
                 </ion-label>
-              <ion-icon name="trash-outline" (click)="remover(funcionario.CodFun)"></ion-icon>
-              <ion-button (click)="atualizar(funcionario.CodFun)"><ion-icon name="pencil-outline" ></ion-icon></ion-button>
+              <ion-icon name="trash-outline" color="danger" (click)="remover(funcionario.CodFun)"></ion-icon>
+              <ion-icon color="warning" (click)="atualizar(funcionario.CodFun)" name="pencil-outline" ></ion-icon>
             </ion-item>
+            <ion-item class="ion-hide-sm-up">
+              <ion-item-group class="ion-padding">
+                <ion-item-divider>
+                  <ion-label>
+                    Nome: {{funcionario.Nome}}
+                  </ion-label>
+                </ion-item-divider>
+                <ion-item>
+                  <ion-label>
+                    Telefone {{funcionario.Fone}}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    Cargo: {{funcionario.Cargo}}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    Cidade: {{funcionario.Cidade}}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-row class="ion-justify-content-center ion-align-items-center">
+                    <ion-col>
+                      <ion-icon name="trash-outline" color="danger" (click)="remover(funcionario.CodFun)" size="large"></ion-icon>
+                    </ion-col>
+                    <ion-col>
+                      <ion-icon color="warning" (click)="atualizar(funcionario.CodFun)" name="pencil-outline" size="large"></ion-icon>
+                    </ion-col>
+                  </ion-row>
+                </ion-item>
+              </ion-item-group>
+          </ion-item>
           </ng-container>
       </ion-list>
     </ion-col>
   </ion-row>
-  <ion-modal [isOpen]="IsModalOpen">
+
+  <ion-modal [isOpen]="IsModalOpens">
     <ng-template>
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button>Cancel</ion-button>
+            <ion-button (click)="createModal()">Cancel</ion-button>
           </ion-buttons>
           <ion-title>Adicionar Funcionario</ion-title>
           <ion-buttons slot="end">
@@ -116,9 +150,9 @@
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button (click)="setOpen(false)">Cancel</ion-button>
+            <ion-button (click)="setOpen()">Cancel</ion-button>
           </ion-buttons>
-          <ion-title>Adicionar Funcionario</ion-title>
+          <ion-title>Atualizar Funcionario</ion-title>
           <ion-buttons slot="end">
             <ion-button  [strong]="true" (click)="sendAtualiza()">Confirm</ion-button>
           </ion-buttons>
